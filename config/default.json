@@ -1,0 +1,5 @@
+{
+	"serverPort": 3000,
+	"dbUrl": "mongodb+srv://alexey_tyurin:8135tyurin@cloud.uos6esa.mongodb.net/?retryWrites=true&w=majority",
+	"secretKey": "cloud-secret-key"
+}
