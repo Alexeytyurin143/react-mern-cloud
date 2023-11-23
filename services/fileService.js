@@ -9,12 +9,12 @@ class FileService {
 			try {
 				if (!fs.existsSync(filePath)) {
 					fs.mkdirSync(filePath)
-					return resolve({ message: 'File was created' })
+					return resolve({ message: 'Файл успешно создан' })
 				} else {
-					return reject({ message: 'File already exists' })
+					return reject({ message: 'Файл уже существует' })
 				}
 			} catch (e) {
-				return reject({ message: 'File error' })
+				return reject({ message: 'Файловая ошибка' })
 			}
 		})
 	}

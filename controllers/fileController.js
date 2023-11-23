@@ -61,7 +61,9 @@ class FileController {
 			return res.json(files)
 		} catch (e) {
 			console.log(e)
-			return res.status(500).json({ message: 'Can not get files' })
+			return res
+				.status(500)
+				.json({ message: 'Не удается получить файлы' })
 		}
 	}
 
@@ -76,9 +78,7 @@ class FileController {
 			const user = await User.findOne({ _id: req.user.id })
 
 			if (user.usedSpace + file.size > user.diskSpace) {
-				return res
-					.status(400)
-					.json({ message: 'There no space on the disk' })
+				return res.status(400).json({ message: 'Нет места на диске' })
 			}
 
 			user.usedSpace = user.usedSpace + file.size
@@ -95,7 +95,7 @@ class FileController {
 			}
 
 			if (fs.existsSync(path)) {
-				return res.status(400).json({ message: 'File already exist' })
+				return res.status(400).json({ message: 'Файл уже существует' })
 			}
 
 			file.mv(path)
@@ -121,7 +121,7 @@ class FileController {
 			res.json(dbFile)
 		} catch (e) {
 			console.log(e)
-			return res.status(500).json({ message: 'Upload error' })
+			return res.status(500).json({ message: 'Ошибка загрузки' })
 		}
 	}
 
@@ -135,10 +135,10 @@ class FileController {
 			if (fs.existsSync(path)) {
 				return res.download(path, file.name)
 			}
-			return res.status(400).json({ message: 'Download error' })
+			return res.status(400).json({ message: 'Ошибка скачивания' })
 		} catch (e) {
 			console.log(e)
-			res.status(500).json({ message: 'Download error' })
+			res.status(500).json({ message: 'Ошибка скачивания' })
 		}
 	}
 
@@ -149,14 +149,14 @@ class FileController {
 				user: req.user.id,
 			})
 			if (!file) {
-				return res.status(400).json({ message: 'file not found' })
+				return res.status(400).json({ message: 'Файл не найден' })
 			}
 			fileService.deleteFile(req, file)
 			await file.deleteOne({ _id: file._id })
-			return res.json({ message: 'File was deleted' })
+			return res.json({ message: 'Файл успешно удалён' })
 		} catch (e) {
 			console.log(e)
-			return res.status(400).json({ message: 'Dir is not empty' })
+			return res.status(400).json({ message: 'Папка не пустая' })
 		}
 	}
 
@@ -168,7 +168,7 @@ class FileController {
 			return res.json(files)
 		} catch (e) {
 			console.log(e)
-			return res.status(400).json({ message: 'Search error' })
+			return res.status(400).json({ message: 'Ошибка поиска' })
 		}
 	}
 
@@ -183,7 +183,7 @@ class FileController {
 			return res.json(user)
 		} catch (e) {
 			console.log(e)
-			return res.status(400).json({ message: 'Upload avatar error' })
+			return res.status(400).json({ message: 'Ошибка загрузки аватара' })
 		}
 	}
 
@@ -196,7 +196,7 @@ class FileController {
 			return res.json(user)
 		} catch (e) {
 			console.log(e)
-			return res.status(400).json({ message: 'Delete avatar error' })
+			return res.status(400).json({ message: 'Ошибка удаления аватара' })
 		}
 	}
 }

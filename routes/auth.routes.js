@@ -24,7 +24,7 @@ router.post(
 			if (!errors.isEmpty()) {
 				return res
 					.status(400)
-					.json({ message: 'Incorrect request', errors })
+					.json({ message: 'Некоррекный запрос', errors })
 			}
 
 			const { email, password } = req.body
@@ -46,7 +46,7 @@ router.post(
 			return res.json({ message: 'Пользователь успешно создан!' })
 		} catch (e) {
 			console.log(e)
-			res.send({ message: 'Server error' })
+			res.send({ message: 'Ошибка сервера' })
 		}
 	}
 )
@@ -77,7 +77,7 @@ router.post('/login', async (req, res) => {
 		})
 	} catch (e) {
 		console.log(e)
-		res.send({ message: 'Server error' })
+		res.send({ message: 'Ошибка сервера' })
 	}
 })
 
@@ -99,7 +99,7 @@ router.get('/auth', authMiddleware, async (req, res) => {
 		})
 	} catch (e) {
 		console.log(e)
-		res.send({ message: 'Server error' })
+		res.send({ message: 'Ошибка сервера' })
 	}
 })
 
