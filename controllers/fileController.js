@@ -84,14 +84,10 @@ class FileController {
 			user.usedSpace = user.usedSpace + file.size
 
 			let path
-			const utf8Name = iconv.decode(
-				Buffer.from(file.name, 'latin1'),
-				'utf-8'
-			)
 			if (parent) {
-				path = `${req.filePath}/${user._id}/${parent.path}/${utf8Name}`
+				path = `${req.filePath}/${user._id}/${parent.path}/${file.name}`
 			} else {
-				path = `${req.filePath}/${user._id}/${utf8Name}`
+				path = `${req.filePath}/${user._id}/${file.name}`
 			}
 
 			if (fs.existsSync(path)) {
@@ -100,14 +96,14 @@ class FileController {
 
 			file.mv(path)
 
-			const type = utf8Name.split('.').pop()
-			let filePath = utf8Name
+			const type = file.name.split('.').pop()
+			let filePath = file.name
 			if (parent) {
-				filePath = parent.path + '/' + utf8Name
+				filePath = parent.path + '/' + file.name
 			}
 
 			const dbFile = new File({
-				name: utf8Name,
+				name: file.name,
 				type,
 				size: file.size,
 				path: filePath,

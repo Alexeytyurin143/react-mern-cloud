@@ -12,7 +12,7 @@ const path = require('path')
 const app = express()
 const PORT = process.env.PORT || config.get('serverPort')
 
-app.use(fileUpload({}))
+app.use(fileUpload({ defCharset: 'utf8', defParamCharset: 'utf8' }))
 app.use(corsMiddleware)
 app.use(filePathMiddleware(path.resolve(__dirname, 'files')))
 app.use(staticPathMiddleware(path.resolve(__dirname, 'static')))
