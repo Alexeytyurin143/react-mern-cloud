@@ -1,6 +1,0 @@
-{
-	"serverPort": 3000,
-	"dbUrl": "mongodb://localhost:27017",
-	"secretKey": "cloud-secret-key",
-	"filePath": "C:/umpalumpa/react-mern-cloud/backend/files"
-}

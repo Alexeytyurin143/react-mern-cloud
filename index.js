@@ -10,7 +10,7 @@ const staticPathMiddleware = require('./middleware/staticpath.middleware')
 const path = require('path')
 
 const app = express()
-const PORT = process.env.PORT || config.get('serverPort')
+const PORT = process.env.PORT || 3000
 
 app.use(fileUpload({ defCharset: 'utf8', defParamCharset: 'utf8' }))
 app.use(corsMiddleware)
@@ -23,7 +23,7 @@ app.use('/api/files', fileRouter)
 
 const start = async () => {
 	try {
-		await mongoose.connect(config.get('dbUrl'))
+		await mongoose.connect(process.env.DB_URL)
 
 		app.listen(PORT, () => {
 			console.log('Ракета полетела на порту', PORT)

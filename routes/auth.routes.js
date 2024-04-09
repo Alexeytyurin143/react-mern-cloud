@@ -62,7 +62,7 @@ router.post('/login', async (req, res) => {
 		if (!isPassValid) {
 			return res.status(400).json({ message: 'Неверный пароль' })
 		}
-		const token = jwt.sign({ id: user.id }, config.get('secretKey'), {
+		const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
 			expiresIn: '1h',
 		})
 		return res.json({
@@ -84,7 +84,7 @@ router.post('/login', async (req, res) => {
 router.get('/auth', authMiddleware, async (req, res) => {
 	try {
 		const user = await User.findOne({ _id: req.user.id })
-		const token = jwt.sign({ id: user.id }, config.get('secretKey'), {
+		const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
 			expiresIn: '1h',
 		})
 		return res.json({
